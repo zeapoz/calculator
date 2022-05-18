@@ -1,4 +1,4 @@
-import { tokenize } from "./token.js";
+import { parse } from "./parser.js";
 
 const output = document.getElementById("output");
 const buttons = Array.from(document.getElementById("button-container").children);
@@ -14,6 +14,6 @@ document.getElementById("clear-button").addEventListener("click", () => {
 });
 
 document.getElementById("submit-button").addEventListener("click", () => {
-  let result = tokenize(output.value);
+  let result = parse(output.value);
   console.log(result);
 });
