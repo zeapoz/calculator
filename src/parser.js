@@ -1,6 +1,6 @@
 import { tokenize } from "./token.js";
 
-export { parse };
+export { evaluateExpression };
 
 const precedence = {
   "^": "4",
@@ -82,11 +82,47 @@ const parse = (str) => {
     }
   }
 
-  // Convert objects to values
-  let result = [];
-  for (let i = 0; i < queue.length; i++) {
-    result.push(queue[i].value);
+  return queue;
+}
+
+const evaluateExpression = (str) => {
+  let expression = parse(str);
+
+  let stack = [];
+
+  // Iterate through the expression when we encounter any
+  // operator pop last two literals of stack and push result
+  for (let i = 0; i < expression.length; i++) {
+    const element = expression[i];
+
+    if (element.type === "Literal") {
+      stack.push(element.value);
+    } else {
+      let a = Number(stack.pop());
+      let b = Number(stack.pop());
+
+      switch (element.value) {
+        case "+":
+          stack.push(b + a);
+          break;
+        case "-":
+          stack.push(b - a);
+          break;
+        case "/":
+          stack.push(b / a);
+          break;
+        case "*":
+          stack.push(b * a);
+          break;
+        case "^":
+          stack.push(b ** a);
+          break;
+        default:
+          console.error("unknown operator");
+          break;
+      }
+    }
   }
 
-  return result.toString();
+  return stack.pop();
 }
