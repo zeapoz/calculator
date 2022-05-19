@@ -82,6 +82,8 @@ const parse = (str) => {
     }
   }
 
+  console.log(queue);
+
   return queue;
 }
 
@@ -95,32 +97,58 @@ const evaluateExpression = (str) => {
   for (let i = 0; i < expression.length; i++) {
     const element = expression[i];
 
-    if (element.type === "Literal") {
-      stack.push(element.value);
-    } else {
-      let a = Number(stack.pop());
-      let b = Number(stack.pop());
+    switch (element.type) {
+      case "Literal":
+        stack.push(element.value);
+        break;
+      case "Operator":
+        let a = Number(stack.pop());
+        let b = Number(stack.pop());
 
-      switch (element.value) {
-        case "+":
-          stack.push(b + a);
-          break;
-        case "-":
-          stack.push(b - a);
-          break;
-        case "/":
-          stack.push(b / a);
-          break;
-        case "*":
-          stack.push(b * a);
-          break;
-        case "^":
-          stack.push(b ** a);
-          break;
-        default:
-          console.error("unknown operator");
-          break;
-      }
+        switch (element.value) {
+          case "+":
+            stack.push(b + a);
+            break;
+          case "-":
+            stack.push(b - a);
+            break;
+          case "/":
+            stack.push(b / a);
+            break;
+          case "*":
+            stack.push(b * a);
+            break;
+          case "^":
+            stack.push(b ** a);
+            break;
+          default:
+            console.error("unknown operator");
+            break;
+        }
+        break;
+      case "Function":
+        let x = Number(stack.pop());
+
+        switch (element.value) {
+          case "sin":
+            stack.push(Math.sin(x));
+            break;
+          case "cos":
+            stack.push(Math.cos(x));
+            break;
+          case "tan":
+            stack.push(Math.tan(x));
+            break;
+          case "sqrt":
+            stack.push(Math.sqrt(x));
+            break;
+          default:
+            break;
+        }
+        break;
+      default:
+        console.error("type not found");
+        break;
     }
   }
 

@@ -18,8 +18,11 @@ const tokenize = (str) => {
   // Add corresponding token per character
   str.forEach((char, idx) => {
     if (isDigit(char)) {
+      if (letterBuffer.length) {
+        result.push(new Token("Function", letterBuffer.join("")));
+        letterBuffer = [];
+      }
       numberBuffer.push(char);
-      letterBuffer = [];
     } else if (isLetter(char)) {
       if (numberBuffer.length) {
         result.push(new Token("Literal", numberBuffer.join("")));
