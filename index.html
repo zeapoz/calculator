@@ -16,7 +16,10 @@
   </header>
   <div class="center">
     <div id="calculator">
-      <input id="output" type="text">
+      <div id="output-container">
+        <input type="text" id="expression-output" disabled>
+        <input type="text" id="output">
+      </div>
       <div class="button-container">
         <button class="button">^</button>
         <button class="button">(</button>
@@ -43,7 +46,6 @@
       </div>
       <button id="submit-button" class="button">Enter</button>
     </div>
-  </div>
   </div>
 </body>
 

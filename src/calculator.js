@@ -1,5 +1,6 @@
 import { evaluateExpression } from "./parser.js";
 
+const expressionOutput = document.getElementById("expression-output");
 const output = document.getElementById("output");
 const buttonContainers = Array.from(document.getElementsByClassName("button-container"));
 let buttons = [];
@@ -22,9 +23,12 @@ document.getElementById("backspace-button").addEventListener("click", () => {
 
 document.getElementById("clear-button").addEventListener("click", () => {
   output.value = "";
+  expressionOutput.value = "";
 });
 
 document.getElementById("submit-button").addEventListener("click", () => {
-  let result = evaluateExpression(output.value);
+  let expression = output.value;
+  let result = evaluateExpression(expression);
+  expressionOutput.value = expression;
   output.value = result;
 });
