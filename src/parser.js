@@ -82,8 +82,6 @@ const parse = (str) => {
     }
   }
 
-  console.log(queue);
-
   return queue;
 }
 
