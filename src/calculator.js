@@ -1,4 +1,5 @@
 import { evaluateExpression } from "./parser.js";
+import { hideError } from "./error.js";
 
 const expressionOutput = document.getElementById("expression-output");
 const output = document.getElementById("output");
@@ -20,6 +21,8 @@ const clearInput = () => {
 }
 
 const submitInput = () => {
+  hideError();
+
   let expression = output.value;
   let result = evaluateExpression(expression);
   expressionOutput.value = expression;

@@ -1,4 +1,5 @@
 import { tokenize } from "./token.js";
+import { showError } from "./error.js";
 
 export { evaluateExpression };
 
@@ -55,10 +56,12 @@ const parse = (str) => {
           if (stack.length) {
             queue.push(stack.pop());
           } else {
+            showError("Mismatched paranthesis");
             console.error("mismatched paranthesis");
           }
         }
         if (peek(stack).type !== "Open Paranthesis") {
+          showError("Mismatched paranthesis");
           console.error("mismatched paranthesis");
           break;
         }
@@ -68,6 +71,7 @@ const parse = (str) => {
         }
         break;
       default:
+        showError("Invalid input");
         console.error("not valid input");
         break;
     }
@@ -78,7 +82,9 @@ const parse = (str) => {
     if (peek(stack).type !== "Open Paranthesis") {
       queue.push(stack.pop());
     } else {
+      showError("Mismatched paranthesis");
       console.error("mismatched paranthesis");
+      break;
     }
   }
 
@@ -120,6 +126,7 @@ const evaluateExpression = (str) => {
             stack.push(b ** a);
             break;
           default:
+            showError(`Unknown operator "${element.value}"`);
             console.error("unknown operator");
             break;
         }
@@ -141,10 +148,13 @@ const evaluateExpression = (str) => {
             stack.push(Math.sqrt(x));
             break;
           default:
+            showError(`Unknown function "${element.value}"`);
+            console.error("unknown function");
             break;
         }
         break;
       default:
+        showError("Type not found");
         console.error("type not found");
         break;
     }
