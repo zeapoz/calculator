@@ -26,7 +26,7 @@ body {
 header {
   background-color: var(--bg1);
   padding: 0.2em 1em;
-  margin-bottom: 4em;
+  margin-bottom: 3em;
   width: 100%;
 }
 
@@ -61,7 +61,7 @@ header {
 }
 
 #error-message {
-  display: none;
+  visibility: hidden;
   background-color: var(--red);
   border-radius: 0.5em;
   margin-bottom: 1em;
@@ -82,10 +82,6 @@ header {
   border: none;
   display: block;
   text-align: right;
-}
-
-#output-container input:focus {
-  outline: none;
 }
 
 #expression-output {

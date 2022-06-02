@@ -18,6 +18,7 @@ const deleteLast = () => {
 const clearInput = () => {
   output.value = "";
   expressionOutput.value = "";
+  hideError();
 }
 
 const submitInput = () => {
@@ -26,7 +27,12 @@ const submitInput = () => {
   let expression = output.value;
   let result = evaluateExpression(expression);
   expressionOutput.value = expression;
-  output.value = result;
+  if (result) {
+    console.log(result);
+    output.value = result;
+  } else {
+    output.value = "";
+  }
 }
 
 // Add each button containers children to buttons
@@ -37,7 +43,7 @@ buttonContainers.forEach(c => {
 buttons.map(b => {
   // Check if id is null to not add event listener
   // to submit, backspace and clear buttons
-  if (b.id === null) {
+  if (!b.id) {
     b.addEventListener("click", () => {
       appendValue(b.innerHTML);
     });
@@ -79,6 +85,7 @@ document.addEventListener("keydown", (e) => {
   }
   // Enter key
   if (e.key === "Enter") {
+    e.preventDefault();
     submitInput();
   }
 });

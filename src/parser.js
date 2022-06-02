@@ -58,6 +58,7 @@ const parse = (str) => {
           } else {
             showError("Mismatched paranthesis");
             console.error("mismatched paranthesis");
+            break;
           }
         }
         if (peek(stack).type !== "Open Paranthesis") {
